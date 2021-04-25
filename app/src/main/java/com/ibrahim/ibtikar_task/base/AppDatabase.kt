@@ -1,11 +1,11 @@
 package com.ibrahim.ibtikar_task.base
 
 import androidx.room.*
-import com.ibrahim.ibtikar_task.recipes.data.model.NoteItem
-import com.ibrahim.ibtikar_task.recipes.data.source.local.NotestDao
+import com.ibrahim.ibtikar_task.notes.data.model.Note
+import com.ibrahim.ibtikar_task.notes.data.source.local.NotestDao
 
 @Database(
-    entities = [NoteItem::class],
+    entities = [Note::class],
     version = 1 , exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
