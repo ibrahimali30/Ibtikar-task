@@ -1,12 +1,10 @@
-package com.ibrahim.ibtikar_task.base.extension
+package com.ibrahim.ibtikar_task.utils
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.ibrahim.ibtikar_task.notes.data.model.Note
-import java.util.*
 
 
 class AppAlarmManager(val context: Context) {

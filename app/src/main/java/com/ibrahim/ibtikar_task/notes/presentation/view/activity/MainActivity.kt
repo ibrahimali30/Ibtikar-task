@@ -7,9 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Slide
-import com.ibrahim.ibtikar_task.NoteItemTouchHelperCallback
+import com.ibrahim.ibtikar_task.utils.NoteItemTouchHelperCallback
 import com.ibrahim.ibtikar_task.R
-import com.ibrahim.ibtikar_task.base.extension.AppAlarmManager
+import com.ibrahim.ibtikar_task.utils.AppAlarmManager
 import com.ibrahim.ibtikar_task.notes.data.model.Note
 import com.ibrahim.ibtikar_task.notes.presentation.view.adapter.NoteListAdapter
 import com.ibrahim.ibtikar_task.notes.presentation.view.fragment.NoteDetailFragment
@@ -54,9 +54,9 @@ class MainActivity : AppCompatActivity() {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             itemTouchHelper = ItemTouchHelper(
-                NoteItemTouchHelperCallback { position ->
-                    removeNote(listAdapter.getNote(position))
-                }
+                    NoteItemTouchHelperCallback { position ->
+                        removeNote(listAdapter.getNote(position))
+                    }
             )
             itemTouchHelper.attachToRecyclerView(this)
             listAdapter = NoteListAdapter(::onNoteSelected)

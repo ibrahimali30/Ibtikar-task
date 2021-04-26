@@ -5,8 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.ibrahim.ibtikar_task.R
-import com.ibrahim.ibtikar_task.base.extension.timeToFormattedString
-import com.ibrahim.ibtikar_task.base.extension.timeToFormattedStringAdapter
+import com.ibrahim.ibtikar_task.utils.timeToFormattedStringAdapter
 import com.ibrahim.ibtikar_task.notes.data.model.Note
 import kotlinx.android.synthetic.main.layout_note_list_item.view.*
 import java.lang.IndexOutOfBoundsException

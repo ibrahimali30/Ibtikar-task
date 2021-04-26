@@ -1,4 +1,4 @@
-package com.ibrahim.ibtikar_task.base.extension
+package com.ibrahim.ibtikar_task.utils
 
 import android.app.Activity
 import android.view.View

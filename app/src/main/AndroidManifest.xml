@@ -19,7 +19,7 @@
         </activity>
 
         <receiver
-            android:name="com.ibrahim.ibtikar_task.base.extension.AlarmReceiver"
+            android:name="com.ibrahim.ibtikar_task.utils.AlarmReceiver"
             android:enabled="true" />
 
     </application>

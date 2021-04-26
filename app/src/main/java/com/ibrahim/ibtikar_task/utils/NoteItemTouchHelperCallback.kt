@@ -1,4 +1,4 @@
-package com.ibrahim.ibtikar_task
+package com.ibrahim.ibtikar_task.utils
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

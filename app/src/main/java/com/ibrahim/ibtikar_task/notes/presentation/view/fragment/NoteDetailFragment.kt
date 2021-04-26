@@ -1,16 +1,14 @@
 package com.ibrahim.ibtikar_task.notes.presentation.view.fragment
 
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ibrahim.ibtikar_task.R
-import com.ibrahim.ibtikar_task.base.extension.AppAlarmManager
-import com.ibrahim.ibtikar_task.base.extension.hideKeyboard
-import com.ibrahim.ibtikar_task.base.extension.timeToFormattedString
+import com.ibrahim.ibtikar_task.utils.AppAlarmManager
+import com.ibrahim.ibtikar_task.utils.hideKeyboard
+import com.ibrahim.ibtikar_task.utils.timeToFormattedString
 import com.ibrahim.ibtikar_task.notes.data.model.Note
 import com.ibrahim.ibtikar_task.notes.presentation.view.helper.TimePickerHelper
 import com.ibrahim.ibtikar_task.notes.presentation.viewmodel.NotesViewModel
