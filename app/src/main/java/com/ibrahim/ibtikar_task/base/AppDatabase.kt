@@ -10,7 +10,7 @@ import com.ibrahim.ibtikar_task.notes.data.source.local.NotestDao
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun recipestDao(): NotestDao
+    abstract fun notesDao(): NotestDao
 
 }
 

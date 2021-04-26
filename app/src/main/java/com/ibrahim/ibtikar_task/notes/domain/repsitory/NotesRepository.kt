@@ -7,5 +7,5 @@ import io.reactivex.Flowable
 interface NotesRepository {
     fun insertNote(recipeItem: Note)
     fun deleteNote(recipeItem: Note)
-    fun getFavouriteNotes(): Flowable<List<Note>>
+    fun getAndObserveNotes(): Flowable<List<Note>>
 }

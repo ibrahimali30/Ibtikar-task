@@ -12,8 +12,8 @@ class GetNotesUseCase @Inject constructor(private val recipesRepository: NotesRe
 
     fun deleteNote(recipeItem: Note) = recipesRepository.deleteNote(recipeItem)
 
-    fun getFavouriteNotes(): Flowable<List<Note>> {
-        return recipesRepository.getFavouriteNotes()
+    fun getAndObserveNotes(): Flowable<List<Note>> {
+        return recipesRepository.getAndObserveNotes()
     }
 
 }

@@ -34,6 +34,7 @@ class TimePickerHelper(
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
         onTimePicked(calendar.time.time)

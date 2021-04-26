@@ -16,8 +16,8 @@ class NotesRepositoryImpl @Inject constructor(
 
     override fun deleteNote(recipeItem: Note) = recipesLocalDataSource.deleteNote(recipeItem)
 
-    override fun getFavouriteNotes(): Flowable<List<Note>> {
-        return recipesLocalDataSource.getFavouriteNotes()
+    override fun getAndObserveNotes(): Flowable<List<Note>> {
+        return recipesLocalDataSource.getAndObserveNotes()
     }
 
 

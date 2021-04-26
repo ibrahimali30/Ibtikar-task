@@ -1,10 +1,10 @@
 package com.ibrahim.ibtikar_task.notes.presentation.viewmodel
 
-import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ibrahim.ibtikar_task.notes.data.model.Note
 import com.ibrahim.ibtikar_task.notes.domain.interactor.GetNotesUseCase
+import com.ibrahim.ibtikar_task.utils.AppAlarmManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -12,16 +12,15 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class NotesViewModel @Inject constructor(
-        private val refreshForecastUseCase: GetNotesUseCase
+        private val refreshForecastUseCase: GetNotesUseCase,
+        private val appAlarmManager: AppAlarmManager,
 ): ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
+    val notesListLiveData by lazy { MutableLiveData<List<Note>>() }
 
-    val screenState by lazy { MutableLiveData<List<Note>>() }
-
-
-    fun getFavouriteNotes() {
-        refreshForecastUseCase.getFavouriteNotes()
+    fun getAndObserveNotes() {
+        refreshForecastUseCase.getAndObserveNotes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -29,24 +28,27 @@ class NotesViewModel @Inject constructor(
                 }.addTo(compositeDisposable)
     }
 
-    fun insertNote(recipeItem: Note?) {
-        recipeItem ?: return
-        refreshForecastUseCase.insertNote(recipeItem)
-    }
-
-    fun deleteNote(recipeItem: Note?) {
-        recipeItem ?: return
-        refreshForecastUseCase.deleteNote(recipeItem)
-    }
-
-    fun handleErrorResponse(it: Throwable) {
-
-    }
-
     private fun handleSuccessResponse(it: List<Note>) {
-        screenState.value = it
+        notesListLiveData.value = it
     }
 
+    fun saveNote(note: Note?, oldNote: Note?) {
+        note ?: return
+        refreshForecastUseCase.insertNote(note)
+        //set alarm
+        appAlarmManager.apply {
+            cancelAlarm(oldNote)
+            setAlarm(note)
+        }
+    }
+
+    fun deleteNote(note: Note?) {
+        note ?: return
+        refreshForecastUseCase.deleteNote(note)
+        //cancel alarm on deletion
+        appAlarmManager.cancelAlarm(note)
+
+    }
 
     override fun onCleared() {
         compositeDisposable.dispose()

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        notesViewModel.getFavouriteNotes()
+        notesViewModel.getAndObserveNotes()
         setupRecyclerView()
         initObservers()
         initViews()
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        notesViewModel.screenState.observe(this , Observer {
+        notesViewModel.notesListLiveData.observe(this , Observer {
             listAdapter.submitList(it)
         })
 
@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun removeNote(note: Note?) {
-        AppAlarmManager(this@MainActivity).cancelAlarm(note)
         notesViewModel.deleteNote(note)
     }
 

@@ -22,6 +22,7 @@ class NotesLocalDataSource @Inject constructor(
             }, {})
     }
 
+    @SuppressLint("CheckResult")
     fun deleteNote(recipeItem: Note) {
         notestDao.deleteNote(recipeItem)
             .subscribeOn(Schedulers.io())
@@ -31,7 +32,7 @@ class NotesLocalDataSource @Inject constructor(
             }, {})
     }
 
-    fun getFavouriteNotes(): Flowable<List<Note>> {
+    fun getAndObserveNotes(): Flowable<List<Note>> {
         return notestDao.getAllNotes()
     }
 

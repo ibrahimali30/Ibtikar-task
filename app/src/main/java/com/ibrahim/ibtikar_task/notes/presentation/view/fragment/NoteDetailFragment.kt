@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ibrahim.ibtikar_task.R
-import com.ibrahim.ibtikar_task.utils.AppAlarmManager
 import com.ibrahim.ibtikar_task.utils.hideKeyboard
 import com.ibrahim.ibtikar_task.utils.timeToFormattedString
 import com.ibrahim.ibtikar_task.notes.data.model.Note
@@ -70,11 +69,7 @@ constructor(
                 note?.id ?: 0
         )
 
-        notesViewModel.insertNote(note)
-        AppAlarmManager(requireActivity()).apply {
-            cancelAlarm(this@NoteDetailFragment.note)
-            setAlarm(note)
-        }
+        notesViewModel.saveNote(note, this@NoteDetailFragment.note)
 
         requireActivity().hideKeyboard()
         activity?.onBackPressed()
