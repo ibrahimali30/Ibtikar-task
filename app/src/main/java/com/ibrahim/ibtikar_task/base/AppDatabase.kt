@@ -6,7 +6,7 @@ import com.ibrahim.ibtikar_task.notes.data.source.local.NotestDao
 
 @Database(
     entities = [Note::class],
-    version = 2 , exportSchema = false
+    version = 4 , exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 

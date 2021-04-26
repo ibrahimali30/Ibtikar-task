@@ -2,14 +2,14 @@ package com.ibrahim.ibtikar_task.notes.presentation.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Slide
 import com.ibrahim.ibtikar_task.NoteItemTouchHelperCallback
 import com.ibrahim.ibtikar_task.R
-import com.ibrahim.ibtikar_task.base.AppDatabase
 import com.ibrahim.ibtikar_task.notes.data.model.Note
-import com.ibrahim.ibtikar_task.notes.domain.repsitory.NotesRepository
 import com.ibrahim.ibtikar_task.notes.presentation.view.adapter.NoteListAdapter
 import com.ibrahim.ibtikar_task.notes.presentation.view.fragment.NoteDetailFragment
 import com.ibrahim.ibtikar_task.notes.presentation.viewmodel.NotesViewModel
@@ -30,9 +30,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupRecyclerView()
-        notesViewModel.getFavouriteNotes()
         initObserverse()
         initViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        notesViewModel.getFavouriteNotes()
     }
 
     private fun initViews() {
@@ -46,16 +50,6 @@ class MainActivity : AppCompatActivity() {
             listAdapter.submitList(it)
         })
 
-        listOf(
-            Note("1","123sfdsf","sdfds","12/123/123","12/123/123"),
-            Note("2","123sfdsf","sdfds","12/123/123","12/123/123"),
-            Note("3","123sfdsf","sdfds","12/123/123","12/123/123"),
-            Note("4","123sfdsf","sdfds","12/123/123","12/123/123"),
-            Note("5","123sfdsf","sdfds","12/123/123","12/123/123"),
-            Note("6","123sfdsf","sdfds","12/123/123","12/123/123")
-        ).forEach {
-            notesViewModel.insertNote(it)
-        }
     }
 
 
@@ -86,8 +80,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToAddEditNote(note: Note? = null) {
+        val noteDetailsFragment = NoteDetailFragment(note , notesViewModel)
+        noteDetailsFragment.enterTransition = Slide(Gravity.END)
+
         supportFragmentManager.beginTransaction()
-            .replace(android.R.id.content, NoteDetailFragment(note))
+            .replace(android.R.id.content, noteDetailsFragment)
             .addToBackStack("")
             .commit()
     }
