@@ -9,7 +9,8 @@ import java.io.Serializable
 data class Note(
     var title: String,
     var body: String,
-    var time: String,
+    var dateString: String,
+    var time: Long,
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 ): Serializable

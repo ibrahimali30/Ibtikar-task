@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.ibrahim.ibtikar_task.R
+import com.ibrahim.ibtikar_task.base.extension.timeToFormattedString
+import com.ibrahim.ibtikar_task.base.extension.timeToFormattedStringAdapter
 import com.ibrahim.ibtikar_task.notes.data.model.Note
 import kotlinx.android.synthetic.main.layout_note_list_item.view.*
 import java.lang.IndexOutOfBoundsException
@@ -76,16 +78,14 @@ class NoteListAdapter(
     ) : RecyclerView.ViewHolder(itemView) {
 
 
-        private lateinit var note: Note
-
         fun bind(item: Note) = with(itemView) {
             setOnClickListener {
-                onItemSelected(adapterPosition, note)
+                onItemSelected(adapterPosition, item)
             }
 
-            note = item
             note_title.text = item.title
-            note_timestamp.text = "dateUtil.removeTimeFromDateString(item.updated_at)"
+            note_body.text = item.body
+            note_timestamp.text = timeToFormattedStringAdapter(item.time)
 
             }
     }
