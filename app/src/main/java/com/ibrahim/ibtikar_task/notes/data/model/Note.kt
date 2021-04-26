@@ -13,4 +13,8 @@ data class Note(
     var time: Long,
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-): Serializable
+): Serializable {
+    fun getReminderNotificationTime(): Long {
+        return time - 10*60*1000 //10 mins earlier
+    }
+}

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Slide
 import com.ibrahim.ibtikar_task.NoteItemTouchHelperCallback
 import com.ibrahim.ibtikar_task.R
+import com.ibrahim.ibtikar_task.base.extension.AppAlarmManager
 import com.ibrahim.ibtikar_task.notes.data.model.Note
 import com.ibrahim.ibtikar_task.notes.presentation.view.adapter.NoteListAdapter
 import com.ibrahim.ibtikar_task.notes.presentation.view.fragment.NoteDetailFragment
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     lateinit var listAdapter: NoteListAdapter
+    lateinit var itemTouchHelper: ItemTouchHelper
 
     @Inject
     lateinit var notesViewModel: NotesViewModel
@@ -29,14 +31,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupRecyclerView()
-        initObserverse()
-        initViews()
-    }
-
-    override fun onResume() {
-        super.onResume()
         notesViewModel.getFavouriteNotes()
+        setupRecyclerView()
+        initObservers()
+        initViews()
     }
 
     private fun initViews() {
@@ -45,37 +43,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initObserverse() {
+    private fun initObservers() {
         notesViewModel.screenState.observe(this , Observer {
             listAdapter.submitList(it)
         })
 
     }
 
-
-    private var itemTouchHelper: ItemTouchHelper? = null
-
     private fun setupRecyclerView(){
         recycler_view.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-//            val topSpacingDecorator = TopSpacingItemDecoration(20)
-//            addItemDecoration(topSpacingDecorator)
             itemTouchHelper = ItemTouchHelper(
                 NoteItemTouchHelperCallback { position ->
-                    notesViewModel.deleteNote(listAdapter.getNote(position))
+                    removeNote(listAdapter.getNote(position))
                 }
             )
-            itemTouchHelper?.attachToRecyclerView(this)
-
-            listAdapter = NoteListAdapter(::onItemSelected)
-
+            itemTouchHelper.attachToRecyclerView(this)
+            listAdapter = NoteListAdapter(::onNoteSelected)
             adapter = listAdapter
         }
-
-
     }
 
-    private fun onItemSelected(i: Int, note: Note) {
+    private fun removeNote(note: Note?) {
+        AppAlarmManager(this@MainActivity).cancelAlarm(note)
+        notesViewModel.deleteNote(note)
+    }
+
+    private fun onNoteSelected(i: Int, note: Note) {
         navigateToAddEditNote(note)
     }
 
@@ -85,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(android.R.id.content, noteDetailsFragment)
-            .addToBackStack("")
+            .addToBackStack(noteDetailsFragment::class.java.name)
             .commit()
     }
 
