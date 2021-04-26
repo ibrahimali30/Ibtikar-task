@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class NotesViewModel @Inject constructor(
-    private val refreshForecastUseCase: GetNotesUseCase
+        private val refreshForecastUseCase: GetNotesUseCase
 ): ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -22,13 +22,11 @@ class NotesViewModel @Inject constructor(
 
     fun getFavouriteNotes() {
         refreshForecastUseCase.getFavouriteNotes()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                handleSuccessResponse(it)
-            }, {
-
-            }).addTo(compositeDisposable)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    handleSuccessResponse(it)
+                }.addTo(compositeDisposable)
     }
 
     fun insertNote(recipeItem: Note?) {
@@ -47,12 +45,6 @@ class NotesViewModel @Inject constructor(
 
     private fun handleSuccessResponse(it: List<Note>) {
         screenState.value = it
-    }
-
-    private fun delay(delay: Long = 1000 , function: () -> Unit) {
-        Handler().postDelayed(
-            {function() }, delay
-        )
     }
 
 

@@ -40,12 +40,6 @@ class NoteItemTouchHelperCallback(
 }
 
 
-interface ItemTouchHelperAdapter{
-
-    fun onItemSwiped(position: Int)
-}
-
-
 
 
 

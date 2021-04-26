@@ -1,12 +1,17 @@
-package com.ibrahim.ibtikar_task
+package com.ibrahim.ibtikar_task.notes.presentation.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ibrahim.ibtikar_task.NoteItemTouchHelperCallback
+import com.ibrahim.ibtikar_task.R
+import com.ibrahim.ibtikar_task.base.AppDatabase
 import com.ibrahim.ibtikar_task.notes.data.model.Note
+import com.ibrahim.ibtikar_task.notes.domain.repsitory.NotesRepository
 import com.ibrahim.ibtikar_task.notes.presentation.view.adapter.NoteListAdapter
+import com.ibrahim.ibtikar_task.notes.presentation.view.fragment.NoteDetailFragment
 import com.ibrahim.ibtikar_task.notes.presentation.viewmodel.NotesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +32,13 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         notesViewModel.getFavouriteNotes()
         initObserverse()
+        initViews()
+    }
+
+    private fun initViews() {
+        add_new_note_fab.setOnClickListener {
+            navigateToAddEditNote()
+        }
     }
 
     private fun initObserverse() {
@@ -70,7 +82,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(i: Int, note: Note) {
+        navigateToAddEditNote(note)
+    }
 
+    private fun navigateToAddEditNote(note: Note? = null) {
+        supportFragmentManager.beginTransaction()
+            .replace(android.R.id.content, NoteDetailFragment(note))
+            .addToBackStack("")
+            .commit()
     }
 
 }
