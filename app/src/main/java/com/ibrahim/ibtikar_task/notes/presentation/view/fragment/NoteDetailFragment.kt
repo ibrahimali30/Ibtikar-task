@@ -22,7 +22,7 @@ constructor(
     private val notesViewModel: NotesViewModel
 ): Fragment(R.layout.fragment_note_detail) {
 
-    private val dateAndTimePicker by lazy {
+    val dateAndTimePicker by lazy {
         TimePickerHelper(activity , ::onTimePicked)
     }
 

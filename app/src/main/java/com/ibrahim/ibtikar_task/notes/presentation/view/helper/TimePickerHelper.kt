@@ -12,7 +12,7 @@ class TimePickerHelper(
         val onTimePicked: (timeLong: Long)-> Unit
 ) : TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    val calendar = Calendar.getInstance()
+    var calendar = Calendar.getInstance()
 
     fun show() {
         showDatePicker()
