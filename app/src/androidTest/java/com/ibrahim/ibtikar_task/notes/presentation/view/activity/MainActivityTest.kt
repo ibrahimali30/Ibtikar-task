@@ -3,7 +3,6 @@ package com.ibrahim.ibtikar_task.notes.presentation.view.activity
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -68,7 +67,7 @@ class MainActivityTest {
         )
         floatingActionButton.perform(click())
 
-        val appCompatEditText = onView(
+        val noteFragmentDetailsTitleEditText = onView(
             allOf(
                 withId(R.id.note_title_fragment),
                 childAtPosition(
@@ -81,9 +80,9 @@ class MainActivityTest {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText(testTitle), closeSoftKeyboard())
+        noteFragmentDetailsTitleEditText.perform(replaceText(testTitle), closeSoftKeyboard())
 
-        val appCompatEditText2 = onView(
+        val noteFragmentDetailsNoteBodyEditText = onView(
             allOf(
                 withId(R.id.note_body_fragment),
                 childAtPosition(
@@ -96,7 +95,7 @@ class MainActivityTest {
                 isDisplayed()
             )
         )
-        appCompatEditText2.perform(replaceText(testDescription), closeSoftKeyboard())
+        noteFragmentDetailsNoteBodyEditText.perform(replaceText(testDescription), closeSoftKeyboard())
 
         val linearLayout = onView(
             allOf(
@@ -146,7 +145,7 @@ class MainActivityTest {
         val formatedTimeForAdapter = timeToFormattedStringAdapter(time)
 
 
-        val textView = onView(
+        val noteDetailsFormattedDateTextView = onView(
             allOf(
                 withId(R.id.tv_date),
                 withParent(
@@ -158,10 +157,10 @@ class MainActivityTest {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(formatedTime)))
+        noteDetailsFormattedDateTextView.check(matches(withText(formatedTime)))
 
 
-        val materialButton3 = onView(
+        val saveButton = onView(
             allOf(
                 withId(R.id.btSaveNote), withText("save"),
                 childAtPosition(
@@ -175,31 +174,31 @@ class MainActivityTest {
             )
         )
         fragment.dateAndTimePicker.calendar = Calendar.getInstance()
-        materialButton3.perform(click())
+        saveButton.perform(click())
 
 
 
 
-        val textView3 = onView(
+        val rvTitleTextView = onView(
             allOf(
                 withId(R.id.note_title), withText(testTitle),
                 withParent(withParent(withId(R.id.recycler_view))),
                 isDisplayed()
             )
         )
-        textView3.check(matches(withText(testTitle)))
+        rvTitleTextView.check(matches(withText(testTitle)))
 
-        val textView4 = onView(
+        val rvbodyTextView = onView(
             allOf(
                 withId(R.id.note_body), withText(testDescription),
                 withParent(withParent(withId(R.id.recycler_view))),
                 isDisplayed()
             )
         )
-        textView4.check(matches(withText(testDescription)))
+        rvbodyTextView.check(matches(withText(testDescription)))
 
 
-        val textView6 = onView(
+        val rvDateTextView = onView(
             allOf(
                 withId(R.id.note_timestamp),
                  withText(formatedTimeForAdapter),
@@ -207,14 +206,14 @@ class MainActivityTest {
                 isDisplayed()
             )
         )
-        textView6.check(matches(withText(formatedTimeForAdapter)))
+        rvDateTextView.check(matches(withText(formatedTimeForAdapter)))
 
-        textView6.perform(click())
+        rvDateTextView.perform(click())
 
 
-        textView.check(matches(withText(formatedTime)))
-        appCompatEditText.check(matches(withText(testTitle)))
-        appCompatEditText2.check(matches(withText(testDescription)))
+        noteDetailsFormattedDateTextView.check(matches(withText(formatedTime)))
+        noteFragmentDetailsTitleEditText.check(matches(withText(testTitle)))
+        noteFragmentDetailsNoteBodyEditText.check(matches(withText(testDescription)))
 
 
     }
