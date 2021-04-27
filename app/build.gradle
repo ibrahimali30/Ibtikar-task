@@ -53,6 +53,7 @@ dependencies {
 
     //dagger hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    androidTestImplementation 'androidx.test:rules:1.4.0-alpha05'
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     //sqlite room
