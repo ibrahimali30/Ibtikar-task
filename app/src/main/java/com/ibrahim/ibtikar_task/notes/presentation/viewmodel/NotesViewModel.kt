@@ -35,6 +35,10 @@ class NotesViewModel @Inject constructor(
     fun saveNote(note: Note?, oldNote: Note?) {
         note ?: return
         refreshForecastUseCase.insertNote(note)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+
         //set alarm
         appAlarmManager.apply {
             cancelAlarm(oldNote)
@@ -45,6 +49,10 @@ class NotesViewModel @Inject constructor(
     fun deleteNote(note: Note?) {
         note ?: return
         refreshForecastUseCase.deleteNote(note)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+
         //cancel alarm on deletion
         appAlarmManager.cancelAlarm(note)
 
