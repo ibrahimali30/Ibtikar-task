@@ -62,8 +62,8 @@ constructor(
 
     private fun saveNoteAndClose() {
         val note = Note(
-                note_title.text.toString(),
-                note_body.text.toString(),
+                note_title_fragment.text.toString(),
+                note_body_fragment.text.toString(),
                 tv_date.text.toString(),
                 dateAndTimePicker.calendar.time.time,
                 note?.id ?: 0
@@ -76,8 +76,8 @@ constructor(
     }
 
     private fun isAllNoteDataFilled(): Boolean {
-        return note_title.text.isNotEmpty() &&
-                note_title.text.isNotEmpty() &&
+        return note_title_fragment.text.isNotEmpty() &&
+                note_title_fragment.text.isNotEmpty() &&
                 tv_date.text.isNotEmpty() &&
                 tv_date.text.toString() != "Select time"
     }
@@ -85,8 +85,8 @@ constructor(
     private fun bindNoteDetails() {
         note ?: return
         note.apply {
-            note_title.setText(title)
-            note_body.setText(body)
+            note_title_fragment.setText(title)
+            note_body_fragment.setText(body)
             tv_date.text = timeToFormattedString(note.time)
         }
     }
