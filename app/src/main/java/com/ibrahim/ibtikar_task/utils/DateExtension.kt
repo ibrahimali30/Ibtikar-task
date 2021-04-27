@@ -10,6 +10,6 @@ fun timeToFormattedString(time: Long):String{
 }
 
 fun timeToFormattedStringAdapter(time: Long):String{
-    val spf = SimpleDateFormat("hh:mm aaa dd/MM/yyyy ")
+    val spf = SimpleDateFormat("hh:mm aaa dd/MM/yyyy")
     return spf.format(time)
 }
